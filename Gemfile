@@ -30,7 +30,7 @@ gem 'devise'
 # Use WorkOS to authenticate users via SSO
 gem 'workos'
 # Use JSON to generate user information in JSON format
-gem 'json'
+gem "json", ">= 2.3.0"
 # Use Figaro to manage environment variables
 gem 'figaro'
 
