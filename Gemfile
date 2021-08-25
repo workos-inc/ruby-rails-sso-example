@@ -28,11 +28,9 @@ gem 'jbuilder', '~> 2.7'
 # Use Devise for general authentication
 gem 'devise'
 # Use WorkOS to authenticate users via SSO
-gem 'workos'
+gem 'workos', '~> 1.5'
 # Use JSON to generate user information in JSON format
 gem "json", ">= 2.3.0"
-# Use Figaro to manage environment variables
-gem 'figaro'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
