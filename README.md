@@ -19,7 +19,6 @@ cd rails-sso-example
 bundle install
 yarn install --check-files
 rails db:migrate
-gem install foreman
 ```
 
 ## Set up SSO Connection with WorkOS
@@ -28,37 +27,23 @@ Use the [WorkOS documentation](https://workos.com/docs/sso/guide/introduction) t
 
 ### Setup in the WorkOS Dashboard
 
-You'll need to create an [SSO Connection](https://dashboard.workos.com/sso/connections). Additionally, add a [Redirect URI](https://dashboard.workos.com/sso/configuration) with the value `http://localhost:3000/sso/callback`.
+You'll need to create an [Organization](https://dashboard.workos.com/organizations) and an SSO Connection in the Organization in your WorkOS Dashboard. Additionally, add a [Redirect URI](https://dashboard.workos.com/configuration) with the value `http://localhost:5000/sso/callback`.
 
-### Setup environment variables with the Figaro gem
+### Setup environment variables
 
-```bash
-bundle exec figaro install
-```
-
-Update `config/application.yml` with your [API Key](https://dashboard.workos.com/api-keys) and [Project ID](https://dashboard.workos.com/sso/configuration):
-
-```yaml
-workos_api_key: $YOUR_WORKOS_API_KEY
-workos_project_id: $YOUR_PROJECT_ID
-```
+Run `cp .env.example .env` and add your [API Key](https://dashboard.workos.com/api-keys) and [Client ID](https://dashboard.workos.com/configuration). The `workos` gem will read your API key from the ENV variable `WORKOS_API_KEY` and your Client ID from the ENV variable `WORKOS_CLIENT_ID`. You may also set the API key and Client ID yourself by adding `WorkOS.key = $YOUR_API_KEY` and `CLIENT_ID = $YOUR_CLIENT_ID` to `sessions_controller.rb`.
 
 ## Run the application and sign in using SSO
 
-Start the rails server:
-```bash
-rails server
-```
-
-Start the webpack server:
+Start the server:
 ```bash
 foreman start -f Procfile.dev
 ```
 
 ### Application Flow
 
-- Head to `http://localhost:3000`
-- If you're not authenticated, the site will re-direct to `http://localhost:3000/users/sign_in`
+- Head to `http://localhost:5000`
+- If you're not authenticated, the site will re-direct to `http://localhost:5000/users/sign_in`
 - Here you can authenticate with Username/Password, or with the SSO you set up with WorkOS
 - To authenticate with SSO, input the domain you used to set up your WorkOS connection, and select the `Sign in with SSO` button
 - After successfully authenticating, you should see a JSON print out of your user information
